@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation Challenges</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .blockchain-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.07;
+            z-index: 0;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px),
+                              repeating-linear-gradient(90deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px);
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border-bottom: 4px solid #3182ce;
+            padding-bottom: 0.5rem;
+        }
+        .challenges-container {
+            display: flex;
+            flex: 1;
+            gap: 2rem;
+        }
+        .challenge-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .challenge-header {
+            background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px 10px 0 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        .header-icon {
+            font-size: 1.6rem;
+            margin-right: 0.8rem;
+        }
+        .challenge-box {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .challenge-items {
+            padding: 1.2rem;
+        }
+        .challenge-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #cbd5e0;
+        }
+        .challenge-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .challenge-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ebf4ff;
+            color: #2b6cb0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        .challenge-content {
+            flex: 1;
+        }
+        .challenge-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #1a365d;
+            margin-bottom: 0.3rem;
+        }
+        .challenge-text {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+        .chart-container {
+            flex: 1;
+            padding: 1.2rem;
+            height: 280px;
+        }
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a365d;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .solution-hint {
+            background: linear-gradient(135deg, rgba(49, 130, 206, 0.1) 0%, rgba(49, 130, 206, 0.2) 100%);
+            border-left: 4px solid #3182ce;
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 0 6px 6px 0;
+        }
+        .hint-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .hint-text {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+        .highlight {
+            font-weight: 600;
+            color: #2b6cb0;
+        }
+        .conference-info {
+            position: absolute;
+            bottom: 30px;
+            left: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="blockchain-bg"></div>
+        
+        <div class="content">
+            <h2 class="section-title">Implementation Challenges</h2>
+            
+            <div class="challenges-container">
+                <div class="challenge-column">
+                    <div class="challenge-box">
+                        <div class="challenge-header">
+                            <i class="fas fa-cogs header-icon"></i>
+                            Technical Challenges
+                        </div>
+                        <div class="challenge-items">
+                            <div class="challenge-item">
+                                <div class="challenge-icon">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <div class="challenge-content">
+                                    <h3 class="challenge-title">Data Migration Complexity</h3>
+                                    <p class="challenge-text">Converting existing alumni records from traditional database to blockchain ledger while maintaining data integrity and relationships.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="challenge-item">
+                                <div class="challenge-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <div class="challenge-content">
+                                    <h3 class="challenge-title">Scalability Constraints</h3>
+                                    <p class="challenge-text">Balancing transaction throughput with system responsiveness for large alumni databases and high user concurrency.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="challenge-item">
+                                <div class="challenge-icon">
+                                    <i class="fas fa-plug"></i>
+                                </div>
+                                <div class="challenge-content">
+                                    <h3 class="challenge-title">Integration with Legacy Systems</h3>
+                                    <p class="challenge-text">Ensuring seamless interface with existing university management systems and third-party services.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="solution-hint">
+                        <h4 class="hint-title">
+                            <i class="fas fa-lightbulb mr-2" style="color: #3182ce;"></i>
+                            Solution Approach
+                        </h4>
+                        <p class="hint-text">Implemented <span class="highlight">hybrid architecture</span> with blockchain for immutable records and relational database for query performance, using <span class="highlight">parallel changeover</span> methodology to minimize disruption.</p>
+                    </div>
+                </div>
+                
+                <div class="challenge-column">
+                    <div class="challenge-box">
+                        <div class="challenge-header">
+                            <i class="fas fa-users header-icon"></i>
+                            Organizational Challenges
+                        </div>
+                        <div class="challenge-items">
+                            <div class="challenge-item">
+                                <div class="challenge-icon">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div class="challenge-content">
+                                    <h3 class="challenge-title">Stakeholder Education</h3>
+                                    <p class="challenge-text">Staff and alumni required training on blockchain concepts to understand system benefits and foster adoption.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="challenge-item">
+                                <div class="challenge-icon">
+                                    <i class="fas fa-file-contract"></i>
+                                </div>
+                                <div class="challenge-content">
+                                    <h3 class="challenge-title">Regulatory Compliance</h3>
+                                    <p class="challenge-text">Ensuring alignment with data protection regulations while implementing decentralized data storage solutions.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="challenge-item">
+                                <div class="challenge-icon">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <div class="challenge-content">
+                                    <h3 class="challenge-title">Resource Allocation</h3>
+                                    <p class="challenge-text">Balancing initial infrastructure investment with long-term operational benefits and sustainability concerns.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-title">Challenge Impact vs. Implementation Difficulty</div>
+                        <canvas id="challengeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="conference-info">
+                <p class="font-medium">International Conference on Information Systems & Blockchain Technology, 2023</p>
+            </div>
+            <div class="page-number">10</div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('challengeChart').getContext('2d');
+            
+            const chartData = {
+                datasets: [{
+                    label: 'Technical Challenges',
+                    data: [
+                        { x: 7, y: 8, r: 15, challenge: 'Data Migration' },
+                        { x: 9, y: 6, r: 17, challenge: 'Scalability' },
+                        { x: 6, y: 7, r: 14, challenge: 'System Integration' }
+                    ],
+                    backgroundColor: 'rgba(49, 130, 206, 0.7)',
+                    borderColor: '#3182ce'
+                }, {
+                    label: 'Organizational Challenges',
+                    data: [
+                        { x: 5, y: 9, r: 16, challenge: 'Stakeholder Education' },
+                        { x: 8, y: 9, r: 15, challenge: 'Regulatory Compliance' },
+                        { x: 7, y: 5, r: 13, challenge: 'Resource Allocation' }
+                    ],
+                    backgroundColor: 'rgba(76, 81, 191, 0.7)',
+                    borderColor: '#4c51bf'
+                }]
+            };
+            
+            new Chart(ctx, {
+                type: 'bubble',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            min: 0,
+                            max: 10,
+                            title: {
+                                display: true,
+                                text: 'Implementation Difficulty'
+                            }
+                        },
+                        y: {
+                            min: 0,
+                            max: 10,
+                            title: {
+                                display: true,
+                                text: 'Business Impact'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const data = context.raw;
+                                    return data.challenge + ': Impact: ' + data.y + ', Difficulty: ' + data.x;
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

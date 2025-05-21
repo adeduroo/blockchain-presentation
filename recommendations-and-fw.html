@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations & Future Work</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .blockchain-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.07;
+            z-index: 0;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px),
+                              repeating-linear-gradient(90deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px);
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border-bottom: 4px solid #3182ce;
+            padding-bottom: 0.5rem;
+        }
+        .recommendations-container {
+            display: flex;
+            flex: 1;
+            gap: 2rem;
+        }
+        .recommendations-column, .future-work-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            flex: 1;
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .card-icon {
+            color: #2b6cb0;
+            font-size: 1.6rem;
+        }
+        .recommendation-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .recommendation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px dashed #cbd5e0;
+        }
+        .recommendation-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .recommendation-icon {
+            color: #3182ce;
+            font-size: 1.1rem;
+            margin-top: 0.2rem;
+        }
+        .recommendation-text {
+            flex: 1;
+            font-size: 1rem;
+            color: #2d3748;
+            line-height: 1.5;
+        }
+        .future-work-icon {
+            color: #6b46c1;
+        }
+        .timeline {
+            position: relative;
+            margin-left: 12px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(to bottom, #3182ce 0%, #805ad5 100%);
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-marker {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3182ce;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            border-left: 3px solid #3182ce;
+        }
+        .timeline-title {
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+        .timeline-description {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+        .resource-card {
+            background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            color: white;
+        }
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .resource-icon {
+            font-size: 1.5rem;
+        }
+        .resource-list {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .resource-badge {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .badge-icon {
+            font-size: 0.9rem;
+        }
+        .highlight {
+            font-weight: 600;
+            color: #90cdf4;
+        }
+        .conference-info {
+            position: absolute;
+            bottom: 30px;
+            left: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .contact-info {
+            text-align: center;
+            margin-top: 1.5rem;
+            border-top: 1px solid rgba(203, 213, 224, 0.5);
+            padding-top: 1rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .contact-link {
+            color: #3182ce;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="blockchain-bg"></div>
+        
+        <div class="content">
+            <h2 class="section-title">Recommendations & Future Work</h2>
+            
+            <div class="recommendations-container">
+                <div class="recommendations-column">
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-tasks card-icon"></i>
+                            Implementation Recommendations
+                        </h3>
+                        
+                        <ul class="recommendation-list">
+                            <li class="recommendation-item">
+                                <i class="fas fa-arrow-right recommendation-icon"></i>
+                                <p class="recommendation-text">
+                                    <strong>Staff Training:</strong> Comprehensive training program for university personnel on blockchain concepts and system administration
+                                </p>
+                            </li>
+                            
+                            <li class="recommendation-item">
+                                <i class="fas fa-arrow-right recommendation-icon"></i>
+                                <p class="recommendation-text">
+                                    <strong>Parallel Changeover:</strong> Implement parallel systems during transition to compare results and ensure data integrity
+                                </p>
+                            </li>
+                            
+                            <li class="recommendation-item">
+                                <i class="fas fa-arrow-right recommendation-icon"></i>
+                                <p class="recommendation-text">
+                                    <strong>Alumni Onboarding:</strong> Develop alumni engagement strategy with educational resources about blockchain benefits
+                                </p>
+                            </li>
+                            
+                            <li class="recommendation-item">
+                                <i class="fas fa-arrow-right recommendation-icon"></i>
+                                <p class="recommendation-text">
+                                    <strong>Phased Implementation:</strong> Begin with core record-keeping features, gradually expanding to advanced services
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h3 class="resource-title">
+                            <i class="fas fa-book-open resource-icon"></i>
+                            Resources & Support
+                        </h3>
+                        <div class="resource-list">
+                            <div class="resource-badge">
+                                <i class="fas fa-file-pdf badge-icon"></i>
+                                Implementation Guide
+                            </div>
+                            <div class="resource-badge">
+                                <i class="fas fa-video badge-icon"></i>
+                                Training Videos
+                            </div>
+                            <div class="resource-badge">
+                                <i class="fas fa-hands-helping badge-icon"></i>
+                                University Network
+                            </div>
+                            <div class="resource-badge">
+                                <i class="fas fa-code badge-icon"></i>
+                                Technical Support
+                            </div>
+                            <div class="resource-badge">
+                                <i class="fas fa-wallet badge-icon"></i>
+                                Funding Resources
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="future-work-column">
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-rocket card-icon future-work-icon"></i>
+                            Future Research Directions
+                        </h3>
+                        
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4 class="timeline-title">Integration with Credential Verification</h4>
+                                    <p class="timeline-description">Explore digital certification of academic credentials through blockchain for employers and institutions.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4 class="timeline-title">Smart Contract Advancement</h4>
+                                    <p class="timeline-description">Develop automated smart contracts for alumni donations, scholarship endowments, and mentoring programs.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4 class="timeline-title">Cross-University Network</h4>
+                                    <p class="timeline-description">Research interoperable blockchain networks connecting multiple educational institutions.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4 class="timeline-title">Decentralized Alumni Governance</h4>
+                                    <p class="timeline-description">Investigate tokenized voting systems for alumni participation in university initiatives.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                For research collaborations: 
+                <a href="mailto:solanke.olakunle@oouagoiwoye.edu.ng" class="contact-link">solanke.olakunle@oouagoiwoye.edu.ng</a> | 
+                <a href="mailto:oluranti.sangodoyin@tech-u.edu.ng" class="contact-link">oluranti.sangodoyin@tech-u.edu.ng</a>
+            </div>
+            
+            <div class="conference-info">
+                <p class="font-medium">International Conference on Information Systems & Blockchain Technology, 2023</p>
+            </div>
+            <div class="page-number">12</div>
+        </div>
+    </div>
+</body>
+</html>

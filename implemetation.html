@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Implementation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .blockchain-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.07;
+            z-index: 0;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px),
+                              repeating-linear-gradient(90deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px);
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border-bottom: 4px solid #3182ce;
+            padding-bottom: 0.5rem;
+        }
+        .implementation-container {
+            display: flex;
+            gap: 2rem;
+            flex: 1;
+        }
+        .left-column {
+            flex: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .right-column {
+            flex: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .impl-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3182ce;
+        }
+        .impl-card.highlight {
+            border-left: 5px solid #805ad5;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a365d;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .card-title i {
+            margin-right: 0.8rem;
+            color: #3182ce;
+        }
+        .card-title i.highlight {
+            color: #805ad5;
+        }
+        .feature-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        .point-icon {
+            color: #3182ce;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+        }
+        .point-icon.highlight {
+            color: #805ad5;
+        }
+        .point-text {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            color: #2d3748;
+        }
+        .system-diagram {
+            height: 320px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .implementation-phases {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+        .phase-item {
+            flex: 1;
+            background: linear-gradient(135deg, #3182ce 0%, #1a56db 100%);
+            border-radius: 8px;
+            padding: 1rem;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .phase-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .phase-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.6rem;
+        }
+        .phase-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .phase-desc {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .tech-badge {
+            background: rgba(49, 130, 206, 0.1);
+            border: 1px solid #3182ce;
+            border-radius: 20px;
+            padding: 0.3rem 0.7rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1a56db;
+            display: flex;
+            align-items: center;
+        }
+        .tech-badge i {
+            margin-right: 0.4rem;
+        }
+        .conference-info {
+            position: absolute;
+            bottom: 30px;
+            left: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="blockchain-bg"></div>
+        
+        <div class="content">
+            <h2 class="section-title">System Implementation</h2>
+            
+            <div class="implementation-container">
+                <div class="left-column">
+                    <div class="implementation-phases">
+                        <div class="phase-item">
+                            <i class="fas fa-code phase-icon"></i>
+                            <div class="phase-title">Development</div>
+                            <div class="phase-desc">PHP, MySQL & Bootstrap</div>
+                        </div>
+                        <div class="phase-item">
+                            <i class="fas fa-server phase-icon"></i>
+                            <div class="phase-title">Deployment</div>
+                            <div class="phase-desc">Remote Web Server</div>
+                        </div>
+                        <div class="phase-item">
+                            <i class="fas fa-users-cog phase-icon"></i>
+                            <div class="phase-title">Training</div>
+                            <div class="phase-desc">Staff & Administrators</div>
+                        </div>
+                        <div class="phase-item">
+                            <i class="fas fa-sync phase-icon"></i>
+                            <div class="phase-title">Changeover</div>
+                            <div class="phase-desc">Parallel Implementation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="system-diagram">
+                        <pre class="mermaid">
+                            flowchart TB
+                                subgraph "Alumni Information System Architecture"
+                                U[User/Alumni] ---> |Access| F[Frontend Interface]
+                                F --> |Authenticate| Auth[Authentication]
+                                Auth --> |Request| B[Backend Services]
+                                B --> |CRUD Operations| D[Database Layer]
+                                D --> |Verify| BC[Blockchain Layer]
+                                BC --> |Confirm| D
+                                end
+                                
+                                style U fill:#3182ce,color:#fff,stroke:#1a56db
+                                style F fill:#4299e1,color:#fff,stroke:#1a56db
+                                style Auth fill:#63b3ed,color:#fff,stroke:#1a56db
+                                style B fill:#90cdf4,color:#1a365d,stroke:#1a56db
+                                style D fill:#bee3f8,color:#1a365d,stroke:#1a56db
+                                style BC fill:#805ad5,color:#fff,stroke:#6b46c1
+                        </pre>
+                    </div>
+                    
+                    <div class="impl-card highlight">
+                        <div class="card-title">
+                            <i class="fas fa-link highlight"></i> Blockchain Integration
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-lock point-icon highlight"></i>
+                            <span class="point-text">Immutable data records with cryptographic verification</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-eye point-icon highlight"></i>
+                            <span class="point-text">Transparent audit trail of all record modifications</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-shield-alt point-icon highlight"></i>
+                            <span class="point-text">Enhanced security through distributed ledger technology</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="impl-card">
+                        <div class="card-title">
+                            <i class="fas fa-layer-group"></i> Application Modules
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-sign-in-alt point-icon"></i>
+                            <span class="point-text"><strong>Enumerator Login:</strong> Role-based access control system</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-user-shield point-icon"></i>
+                            <span class="point-text"><strong>Administrator Module:</strong> System management dashboard</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-user-plus point-icon"></i>
+                            <span class="point-text"><strong>Registration Module:</strong> Alumni data collection forms</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-database point-icon"></i>
+                            <span class="point-text"><strong>Database Module:</strong> Blockchain-verified storage</span>
+                        </div>
+                    </div>
+                    
+                    <div class="impl-card">
+                        <div class="card-title">
+                            <i class="fas fa-code"></i> Technical Implementation
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-laptop-code point-icon"></i>
+                            <span class="point-text"><strong>Frontend:</strong> Responsive design with Bootstrap</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-cogs point-icon"></i>
+                            <span class="point-text"><strong>Backend:</strong> PHP for server-side logic</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-database point-icon"></i>
+                            <span class="point-text"><strong>Database:</strong> MySQL for data storage & management</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-server point-icon"></i>
+                            <span class="point-text"><strong>Hosting:</strong> Remote server deployment with SSL</span>
+                        </div>
+                        
+                        <div class="tech-badges">
+                            <div class="tech-badge">
+                                <i class="fab fa-php"></i> PHP 7.4
+                            </div>
+                            <div class="tech-badge">
+                                <i class="fas fa-database"></i> MySQL 8.0
+                            </div>
+                            <div class="tech-badge">
+                                <i class="fab fa-bootstrap"></i> Bootstrap 5
+                            </div>
+                            <div class="tech-badge">
+                                <i class="fab fa-js"></i> JavaScript
+                            </div>
+                            <div class="tech-badge">
+                                <i class="fab fa-html5"></i> HTML5
+                            </div>
+                            <div class="tech-badge">
+                                <i class="fab fa-css3-alt"></i> CSS3
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="impl-card">
+                        <div class="card-title">
+                            <i class="fas fa-tasks"></i> Implementation Flow
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-clipboard-check point-icon"></i>
+                            <span class="point-text"><strong>System Analysis & Design:</strong> Define requirements & architecture</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-code-branch point-icon"></i>
+                            <span class="point-text"><strong>Development & Integration:</strong> Coding & blockchain connection</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-vial point-icon"></i>
+                            <span class="point-text"><strong>Testing & Validation:</strong> System functionality & security</span>
+                        </div>
+                        <div class="feature-point">
+                            <i class="fas fa-graduation-cap point-icon"></i>
+                            <span class="point-text"><strong>Training & Documentation:</strong> User guides & support materials</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="conference-info">
+                <p class="font-medium">International Conference on Information Systems & Blockchain Technology, 2023</p>
+            </div>
+            <div class="page-number">6</div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'neutral',
+                flowchart: {
+                    useMaxWidth: false,
+                    htmlLabels: true
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploring Blockchain Technology</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .blockchain-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.07;
+            z-index: 0;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px),
+                              repeating-linear-gradient(90deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px);
+        }
+        .blockchain-nodes {
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            padding: 2.5rem;
+        }
+        .title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1a365d;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+        .authors {
+            margin-top: 3rem;
+        }
+        .author {
+            margin-bottom: 1rem;
+        }
+        .cube {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 50px;
+            right: 100px;
+            transform: rotate(45deg);
+            background: linear-gradient(135deg, #3182ce 0%, #1a56db 100%);
+            box-shadow: 0 10px 20px rgba(26, 86, 219, 0.3);
+        }
+        .cube::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(45deg);
+        }
+        .conference-info {
+            position: absolute;
+            bottom: 30px;
+            left: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="blockchain-bg"></div>
+        <div class="blockchain-nodes">
+            <!-- SVG pattern to represent blockchain nodes and connections -->
+            <svg viewBox="0 0 500 500">
+                <circle cx="100" cy="100" r="8" fill="#1a56db"></circle>
+                <circle cx="200" cy="150" r="8" fill="#1a56db"></circle>
+                <circle cx="300" cy="100" r="8" fill="#1a56db"></circle>
+                <circle cx="150" cy="250" r="8" fill="#1a56db"></circle>
+                <circle cx="250" cy="300" r="8" fill="#1a56db"></circle>
+                <circle cx="350" cy="250" r="8" fill="#1a56db"></circle>
+                <circle cx="200" cy="400" r="8" fill="#1a56db"></circle>
+                <circle cx="300" cy="350" r="8" fill="#1a56db"></circle>
+                <circle cx="400" cy="400" r="8" fill="#1a56db"></circle>
+                <line x1="100" y1="100" x2="200" y2="150" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="200" y1="150" x2="300" y2="100" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="150" y1="250" x2="200" y2="150" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="250" y1="300" x2="150" y2="250" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="250" y1="300" x2="350" y2="250" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="300" y1="100" x2="350" y2="250" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="200" y1="400" x2="250" y2="300" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="300" y1="350" x2="250" y2="300" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="300" y1="350" x2="400" y2="400" stroke="#1a56db" stroke-width="2"></line>
+            </svg>
+        </div>
+        <div class="cube"></div>
+        <div class="content flex flex-col justify-center">
+            <div class="max-w-4xl">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-cubes text-3xl text-blue-700 mr-4"></i>
+                    <h1 class="title">EXPLORING BLOCKCHAIN TECHNOLOGY OVER UNIVERSITY'S ALUMNI INFORMATION MANAGEMENT SYSTEM</h1>
+                </div>
+                
+                <div class="authors text-gray-700">
+                    <div class="author flex items-start">
+                        <i class="fas fa-user-circle text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-semibold">Olakunle Solanke</span>
+                            <p class="text-sm">Department of Computer Sciences, Olabisi Onabanjo University, Ago-Iwoye, Nigeria</p>
+                        </div>
+                    </div>
+                    <div class="author flex items-start">
+                        <i class="fas fa-user-circle text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-semibold">Oluranti Sangodoyin</span>
+                            <p class="text-sm">Department of Cybersecurity, Abiola Ajimobi Technical University, Ibadan, Nigeria</p>
+                        </div>
+                    </div>
+                    <div class="author flex items-start">
+                        <i class="fas fa-user-circle text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-semibold">Oladapo Adeduro</span>
+                            <p class="text-sm">Department of Cybersecurity, McPherson University, Seriki-Sotayo, Nigeria</p>
+                        </div>
+                    </div>
+                    <div class="author flex items-start">
+                        <i class="fas fa-user-circle text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <span class="font-semibold">Olatunji Okesola</span>
+                            <p class="text-sm">Department of Cybersecurity, Abiola Ajimobi Technical University, Ibadan, Nigeria</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="conference-info">
+                <p class="font-medium">International Conference on Information Systems & Blockchain Technology, 2023</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

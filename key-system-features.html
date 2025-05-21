@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Features</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .blockchain-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.07;
+            z-index: 0;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px),
+                              repeating-linear-gradient(90deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px);
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border-bottom: 4px solid #3182ce;
+            padding-bottom: 0.5rem;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            flex: 1;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3182ce;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+        .feature-card.blockchain {
+            border-left: 5px solid #805ad5;
+        }
+        .feature-card.security {
+            border-left: 5px solid #dd6b20;
+        }
+        .feature-card.user {
+            border-left: 5px solid #38a169;
+        }
+        .feature-card.communication {
+            border-left: 5px solid #d69e2e;
+        }
+        .feature-card.data {
+            border-left: 5px solid #3182ce;
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+        }
+        .blockchain .feature-icon {
+            background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
+            color: white;
+        }
+        .security .feature-icon {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            color: white;
+        }
+        .user .feature-icon {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+        }
+        .communication .feature-icon {
+            background: linear-gradient(135deg, #ecc94b 0%, #d69e2e 100%);
+            color: white;
+        }
+        .data .feature-icon {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+        }
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 1rem;
+        }
+        .feature-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            flex: 1;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        .feature-bullet {
+            font-size: 1rem;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+        }
+        .blockchain .feature-bullet {
+            color: #805ad5;
+        }
+        .security .feature-bullet {
+            color: #dd6b20;
+        }
+        .user .feature-bullet {
+            color: #38a169;
+        }
+        .communication .feature-bullet {
+            color: #d69e2e;
+        }
+        .data .feature-bullet {
+            color: #3182ce;
+        }
+        .feature-text {
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #2d3748;
+        }
+        .benefits-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            margin-bottom: -0.5rem;
+        }
+        .benefit-item {
+            background: rgba(49, 130, 206, 0.1);
+            border: 1px solid #3182ce;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1a56db;
+            display: flex;
+            align-items: center;
+        }
+        .benefit-item i {
+            margin-right: 0.5rem;
+        }
+        .conference-info {
+            position: absolute;
+            bottom: 30px;
+            left: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .feature-showcase {
+            position: relative;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .showcase-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="blockchain-bg"></div>
+        
+        <div class="content">
+            <h2 class="section-title">Key System Features</h2>
+            
+            <div class="feature-showcase">
+                <div class="showcase-title">Blockchain-Powered Alumni Information Management</div>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card blockchain">
+                    <div class="feature-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="feature-title">Blockchain Foundation</h3>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Immutable record keeping</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Decentralized data storage</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Transparent verification</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Smart contract automation</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card security">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Security & Privacy</h3>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">End-to-end encryption</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Role-based access control</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">GDPR compliant data handling</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Audit trails & logging</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card user">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3 class="feature-title">User Management</h3>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Digital identity verification</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Customizable alumni profiles</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Self-service credential access</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Alumni networking tools</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card communication">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="feature-title">Communication Tools</h3>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Newsletter distribution system</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Event calendar & reminders</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Automated email campaigns</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Push notification alerts</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card data">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="feature-title">Data Management</h3>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Secure cloud storage</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Advanced search capabilities</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Data analytics dashboard</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet"></i>
+                            <span class="feature-text">Export & reporting tools</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="feature-title">Administrative Features</h3>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet" style="color: #667eea;"></i>
+                            <span class="feature-text">University directory management</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet" style="color: #667eea;"></i>
+                            <span class="feature-text">Document verification system</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet" style="color: #667eea;"></i>
+                            <span class="feature-text">Administrative dashboard</span>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-check-circle feature-bullet" style="color: #667eea;"></i>
+                            <span class="feature-text">Automated reporting system</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="benefits-bar">
+                <div class="benefit-item">
+                    <i class="fas fa-tachometer-alt"></i> Enhanced Performance
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-globe"></i> Global Accessibility
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-lock"></i> Improved Security
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-user-friends"></i> Better Engagement
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-chart-line"></i> Data-Driven Insights
+                </div>
+            </div>
+            
+            <div class="conference-info">
+                <p class="font-medium">International Conference on Information Systems & Blockchain Technology, 2023</p>
+            </div>
+            <div class="page-number">7</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction and Research Objectives</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .blockchain-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.07;
+            z-index: 0;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px),
+                              repeating-linear-gradient(90deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px);
+        }
+        .blockchain-nodes {
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border-bottom: 4px solid #3182ce;
+            padding-bottom: 0.5rem;
+        }
+        .two-column {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .column {
+            flex: 1;
+        }
+        .problem-card, .objective-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #3182ce;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3182ce 0%, #1a56db 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a365d;
+        }
+        .point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        .point-icon {
+            color: #3182ce;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+        .point-text {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            color: #2d3748;
+        }
+        .conference-info {
+            position: absolute;
+            bottom: 30px;
+            left: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #3182ce 0%, #1a56db 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="blockchain-bg"></div>
+        <div class="blockchain-nodes">
+            <svg viewBox="0 0 500 500">
+                <circle cx="100" cy="100" r="8" fill="#1a56db"></circle>
+                <circle cx="200" cy="150" r="8" fill="#1a56db"></circle>
+                <circle cx="300" cy="100" r="8" fill="#1a56db"></circle>
+                <circle cx="150" cy="250" r="8" fill="#1a56db"></circle>
+                <circle cx="250" cy="300" r="8" fill="#1a56db"></circle>
+                <circle cx="350" cy="250" r="8" fill="#1a56db"></circle>
+                <circle cx="200" cy="400" r="8" fill="#1a56db"></circle>
+                <circle cx="300" cy="350" r="8" fill="#1a56db"></circle>
+                <circle cx="400" cy="400" r="8" fill="#1a56db"></circle>
+                <line x1="100" y1="100" x2="200" y2="150" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="200" y1="150" x2="300" y2="100" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="150" y1="250" x2="200" y2="150" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="250" y1="300" x2="150" y2="250" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="250" y1="300" x2="350" y2="250" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="300" y1="100" x2="350" y2="250" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="200" y1="400" x2="250" y2="300" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="300" y1="350" x2="250" y2="300" stroke="#1a56db" stroke-width="2"></line>
+                <line x1="300" y1="350" x2="400" y2="400" stroke="#1a56db" stroke-width="2"></line>
+            </svg>
+        </div>
+        
+        <div class="content">
+            <h2 class="section-title">Introduction & Research Objectives</h2>
+            
+            <div class="two-column">
+                <div class="column">
+                    <div class="problem-card">
+                        <div class="card-header">
+                            <div class="icon-circle">
+                                <i class="fas fa-exclamation-triangle text-white text-2xl"></i>
+                            </div>
+                            <h3 class="card-title">Problem Statement</h3>
+                        </div>
+                        
+                        <div class="point">
+                            <i class="fas fa-dot-circle point-icon"></i>
+                            <span class="point-text"><strong>Alumni Engagement:</strong> Universities struggle to maintain active participation of graduates</span>
+                        </div>
+                        
+                        <div class="point">
+                            <i class="fas fa-dot-circle point-icon"></i>
+                            <span class="point-text"><strong>Data Management:</strong> Current systems overwhelming, difficult to maintain accuracy</span>
+                        </div>
+                        
+                        <div class="point">
+                            <i class="fas fa-dot-circle point-icon"></i>
+                            <span class="point-text"><strong>Trust Issues:</strong> Limited confidence in data integrity and security</span>
+                        </div>
+                        
+                        <div class="point">
+                            <i class="fas fa-dot-circle point-icon"></i>
+                            <span class="point-text"><strong>Global Accessibility:</strong> Need for worldwide access for international alumni</span>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <i class="fas fa-quote-left mr-2 opacity-50"></i>
+                        Universities' alumni constitute one of their most valuable resources
+                        <i class="fas fa-quote-right ml-2 opacity-50"></i>
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <div class="objective-card">
+                        <div class="card-header">
+                            <div class="icon-circle">
+                                <i class="fas fa-bullseye text-white text-2xl"></i>
+                            </div>
+                            <h3 class="card-title">Research Objectives</h3>
+                        </div>
+                        
+                        <div class="point">
+                            <i class="fas fa-check-circle point-icon"></i>
+                            <span class="point-text"><strong>Develop:</strong> Web-based alumni information system with blockchain integration</span>
+                        </div>
+                        
+                        <div class="point">
+                            <i class="fas fa-check-circle point-icon"></i>
+                            <span class="point-text"><strong>Enhance:</strong> Data security, integrity and trustworthiness through blockchain</span>
+                        </div>
+                        
+                        <div class="point">
+                            <i class="fas fa-check-circle point-icon"></i>
+                            <span class="point-text"><strong>Create:</strong> User-friendly platform for administrators and alumni members</span>
+                        </div>
+                        
+                        <div class="point">
+                            <i class="fas fa-check-circle point-icon"></i>
+                            <span class="point-text"><strong>Enable:</strong> Global access for alumni network with proper authentication</span>
+                        </div>
+                        
+                        <div class="point">
+                            <i class="fas fa-check-circle point-icon"></i>
+                            <span class="point-text"><strong>Focus:</strong> Case study implementation at National Open University of Nigeria</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="conference-info">
+                <p class="font-medium">International Conference on Information Systems & Blockchain Technology, 2023</p>
+            </div>
+            <div class="page-number">3</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results and Findings</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        .blockchain-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.07;
+            z-index: 0;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px),
+                              repeating-linear-gradient(90deg, transparent, transparent 40px, #1a56db 40px, #1a56db 42px);
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border-bottom: 4px solid #3182ce;
+            padding-bottom: 0.5rem;
+        }
+        .results-container {
+            display: flex;
+            flex: 1;
+            gap: 1.5rem;
+        }
+        .chart-container {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+        .findings-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .finding-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: flex-start;
+        }
+        .finding-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .trust-icon {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+        }
+        .efficiency-icon {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+        }
+        .engagement-icon {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            color: white;
+        }
+        .accuracy-icon {
+            background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
+            color: white;
+        }
+        .finding-content {
+            flex: 1;
+        }
+        .finding-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 0.5rem;
+        }
+        .finding-text {
+            font-size: 0.95rem;
+            color: #2d3748;
+            line-height: 1.4;
+        }
+        .improvement-highlight {
+            display: inline-block;
+            background: rgba(49, 130, 206, 0.1);
+            border-radius: 4px;
+            padding: 2px 6px;
+            color: #2b6cb0;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+        .comparison-table {
+            width: 100%;
+            margin-top: 1.5rem;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        .comparison-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            color: #1a365d;
+        }
+        .comparison-table td {
+            padding: 0.75rem 1rem;
+        }
+        .comparison-table tr.feature-row td {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        .comparison-table tr.feature-row td:first-child {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            font-weight: 500;
+        }
+        .comparison-table tr.feature-row td:last-child {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .traditional {
+            color: #e53e3e;
+        }
+        .blockchain {
+            color: #38a169;
+        }
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .chart-wrapper {
+            flex: 1;
+            position: relative;
+        }
+        .conference-info {
+            position: absolute;
+            bottom: 30px;
+            left: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 2.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="blockchain-bg"></div>
+        
+        <div class="content">
+            <h2 class="section-title">Results & Findings</h2>
+            
+            <div class="results-container">
+                <div class="findings-list">
+                    <div class="finding-item">
+                        <div class="finding-icon trust-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="finding-content">
+                            <h3 class="finding-title">Enhanced Data Integrity & Security</h3>
+                            <p class="finding-text">Implementation of blockchain technology significantly improved data security and trustworthiness through immutable transaction logs and cryptographic verification. <span class="improvement-highlight">+94% trust rating</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="finding-item">
+                        <div class="finding-icon efficiency-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <div class="finding-content">
+                            <h3 class="finding-title">Operational Efficiency</h3>
+                            <p class="finding-text">Reduced administrative workload through automated verification processes and smart contracts, eliminating redundant manual data entry. <span class="improvement-highlight">68% time savings</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="finding-item">
+                        <div class="finding-icon engagement-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="finding-content">
+                            <h3 class="finding-title">Improved Alumni Engagement</h3>
+                            <p class="finding-text">Self-service credential access and networking features led to significantly higher alumni participation and interaction with university initiatives. <span class="improvement-highlight">+42% engagement</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="finding-item">
+                        <div class="finding-icon accuracy-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="finding-content">
+                            <h3 class="finding-title">Data Accuracy & Completeness</h3>
+                            <p class="finding-text">Blockchain's consensus mechanism ensured accuracy of alumni records, reducing duplicate entries and information gaps. <span class="improvement-highlight">97% data accuracy</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-title">Traditional vs. Blockchain-Based System</div>
+                    <div class="chart-wrapper">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Key Metrics</th>
+                                <th>Traditional System</th>
+                                <th>Blockchain System</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="feature-row">
+                                <td>Data Verification Time</td>
+                                <td class="traditional">2-3 days</td>
+                                <td class="blockchain">Instant</td>
+                            </tr>
+                            <tr class="feature-row">
+                                <td>Record Immutability</td>
+                                <td class="traditional">Low</td>
+                                <td class="blockchain">Very High</td>
+                            </tr>
+                            <tr class="feature-row">
+                                <td>System Availability</td>
+                                <td class="traditional">92% uptime</td>
+                                <td class="blockchain">99.9% uptime</td>
+                            </tr>
+                            <tr class="feature-row">
+                                <td>User Satisfaction</td>
+                                <td class="traditional">67%</td>
+                                <td class="blockchain">91%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="conference-info">
+                <p class="font-medium">International Conference on Information Systems & Blockchain Technology, 2023</p>
+            </div>
+            <div class="page-number">8</div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            
+            const chartData = {
+                labels: ['Security', 'Speed', 'Accuracy', 'Transparency', 'Cost Efficiency'],
+                datasets: [
+                    {
+                        label: 'Traditional System',
+                        data: [40, 30, 55, 25, 60],
+                        backgroundColor: 'rgba(229, 62, 62, 0.5)',
+                        borderColor: '#e53e3e',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Blockchain System',
+                        data: [95, 85, 90, 96, 75],
+                        backgroundColor: 'rgba(56, 161, 105, 0.5)',
+                        borderColor: '#38a169',
+                        borderWidth: 1
+                    }
+                ]
+            };
+            
+            new Chart(ctx, {
+                type: 'radar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20
+                            }
+                        }
+                    },
+                    elements: {
+                        line: {
+                            tension: 0.2
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
